@@ -7,16 +7,7 @@
     <!-- Polices & icônes -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<script>
-                window.onload = function () {
-                    Calendly.initInlineWidget({
-                        url: 'https://calendly.com/julien-loze/30min',
-                        parentElement: document.getElementById('calendly-inline-widget'),
-                        prefill: {},
-                        utm: {}
-                    });
-                };
-            </script>
+
     <style>
         * {
             margin: 0;
@@ -506,7 +497,34 @@
         <div class="calendly-wrapper">
             <h2>Prendre rendez-vous</h2>
             <div id="calendly-inline-widget"></div>
-            
+            <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const target = document.getElementById("rendezvous");
+                    const widgetContainer = document.getElementById("calendly-inline-widget");
+                    let calendlyLoaded = false;
+
+                    const observer = new IntersectionObserver((entries, observer) => {
+                        entries.forEach(entry => {
+                            if (entry.isIntersecting && !calendlyLoaded) {
+                                Calendly.initInlineWidget({
+                                    url: 'https://calendly.com/julien-loze',
+                                    parentElement: widgetContainer,
+                                    prefill: {},
+                                    utm: {}
+                                });
+                                calendlyLoaded = true; // pour éviter de le relancer plusieurs fois
+                                observer.unobserve(target); // désactive l’observateur après le chargement
+                            }
+                        });
+                    }, {
+                        threshold: 0.3 // détection quand au moins 30% de la section est visible
+                    });
+
+                    if (target) observer.observe(target);
+                });
+            </script>
+
         </div>
     </section>
 
