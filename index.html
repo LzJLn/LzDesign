@@ -7,7 +7,7 @@
     <!-- Polices & icônes -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+
     <style>
         * {
             margin: 0;
@@ -22,14 +22,14 @@
             overflow-y: scroll;
         }
 
+        body {
+            margin: 0;
+        }
+
         section {
             height: 100vh;
             width: 100%;
             scroll-snap-align: start;
-        }
-
-        body {
-            margin: 0;
         }
 
         /* ======= SECTION HOME ======= */
@@ -174,49 +174,6 @@
             margin: 0 auto 40px;
         }
 
-        .carousel-slide {
-            display: none;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-        }
-
-            .carousel-slide.active {
-                display: flex;
-            }
-
-        .portfolio-text {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .portfolio-carousel {
-            flex: 1;
-            min-width: 300px;
-        }
-
-            .portfolio-carousel img {
-                width: 40%;
-                border-radius: 10px;
-            }
-
-        .carousel-controls {
-            text-align: center;
-            margin-top: 20px;
-        }
-
-            .carousel-controls button {
-                background: rgba(0,0,0,0.5);
-                color: white;
-                border: none;
-                padding: 10px 15px;
-                font-size: 20px;
-                cursor: pointer;
-                margin: 0 10px;
-                border-radius: 8px;
-            }
-
         .carousel-container {
             position: relative;
             display: flex;
@@ -226,7 +183,7 @@
 
         .carousel-slide {
             display: none;
-            flex-direction: column; /* ← nouveau : pile le titre puis le reste */
+            flex-direction: column; /* pile le titre puis le reste */
             align-items: center;
             gap: 20px;
             background: rgba(0,0,0,0.4);
@@ -239,16 +196,6 @@
             .carousel-slide.active {
                 display: flex;
             }
-
-
-        .carousel-box {
-            display: flex;
-            background-color: rgba(255, 255, 255, 0.08);
-            border-radius: 30px;
-            padding: 30px;
-            gap: 40px;
-            backdrop-filter: blur(10px);
-        }
 
         .carousel-body {
             display: flex;
@@ -267,23 +214,13 @@
             height: 100%;
         }
 
-
-        .portfolio-image {
-            flex: 1;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
         .portfolio-carousel img {
             width: 100%;
-            max-width: 400px; /* taille maximale horizontale */
-            max-height: 300px; /* limite verticale */
-            object-fit: contain; /* ou "cover" selon le rendu souhaité */
+            max-width: 400px;
+            max-height: 300px;
+            object-fit: contain;
             border-radius: 10px;
         }
-
-
 
         .carousel-btn {
             position: absolute;
@@ -308,8 +245,9 @@
             }
 
         @media (max-width: 800px) {
-            .carousel-box {
+            .carousel-body {
                 flex-direction: column;
+                gap: 20px;
             }
 
             .carousel-btn.left {
@@ -416,36 +354,29 @@
             max-width: 800px;
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
-
-            .calendly-wrapper h2 {
-                font-size: 36px;
-                margin-bottom: 10px;
-            }
-
-            .calendly-wrapper p {
-                margin-bottom: 20px;
-                font-size: 18px;
-            }
     </style>
+
+    <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
 </head>
 <body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#rendezvous">Rendez-vous</a>
+    </nav>
 
-    <!-- ======= HOME ======= -->
-    <section class="home" id="home">
-        <nav class="nav">
-            <a href="#home">Home</a>
-            <a href="#about">À propos</a>
-            <a href="#portfolio">Portfolio</a>
-            <a href="#rendezvous">Rendez-vous</a>
-
-        </nav>
-
+    <!-- HOME Section -->
+    <section id="home" class="home">
         <div class="content">
             <h1>
-                <span class="firstname">JULIEN</span><br>
-                <span class="lastname">LOZÉ</span><br>
-                <span class="activity">Conception de produits industriels & prototypage</span>
+                <span class="firstname">JULIEN</span><br />
+
+                <span class="lastname">LOZÉ</span>
             </h1>
+            <span class="activity">Conception de produits industriels & prototypage</span>
+
             <div class="buttons">
                 <a href="#about">À propos</a>
                 <a href="#rendezvous">Rendez-vous</a>
@@ -461,8 +392,8 @@
         </div>
     </section>
 
-    <!-- ======= ABOUT ======= -->
-    <section class="about" id="about">
+    <!-- ABOUT Section -->
+    <section id="about" class="about">
         <div class="about-content">
             <h2>À propos</h2>
             <p>
@@ -478,7 +409,7 @@
         </div>
     </section>
 
-    <!-- DANS LA SECTION PORTFOLIO -->
+    <!-- PORTFOLIO Section -->
     <section class="portfolio" id="portfolio">
         <div class="portfolio-content">
             <h2>Portfolio</h2>
@@ -560,7 +491,25 @@
         </div>
     </section>
 
-    <!-- JS -->
+
+    <!-- RENDEZ-VOUS Section -->
+    <section id="rendezvous" class="rendezvous">
+        <div class="calendly-wrapper">
+            <h2>Prendre rendez-vous</h2>
+            <div id="calendly-inline-widget"></div>
+            <script>
+                window.onload = function () {
+                    Calendly.initInlineWidget({
+                        url: 'https://calendly.com/julien-loze/30min',
+                        parentElement: document.getElementById('calendly-inline-widget'),
+                        prefill: {},
+                        utm: {}
+                    });
+                };
+            </script>
+        </div>
+    </section>
+
     <script>
         // CAROUSEL JS
         const slides = document.querySelectorAll('.carousel-slide');
@@ -584,36 +533,5 @@
             showSlide(currentIndex);
         });
     </script>
-
-
-
-
-    <!-- ======= SECTION RENDEZ-VOUS ======= -->
-    <section class="rendezvous" id="rendezvous">
-        <div class="calendly-wrapper">
-            <h2>Prendre rendez-vous</h2>
-            <p>Choisissez un créneau pour discuter de votre projet.</p>
-            <div id="calendly-inline-widget" style="min-width:320px; height:700px;"></div>
-        </div>
-
-        <div class="socials">
-            <a href="https://fr.linkedin.com/in/julien-lz" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.tiktok.com/@3d_zj" target="_blank" rel="noopener noreferrer"><i class="fab fa-tiktok"></i></a>
-
-        </div>
-    </section>
-
-    
-    <script type="text/javascript">
-        window.addEventListener('DOMContentLoaded', function () {
-            Calendly.initInlineWidget({
-                url: 'https://calendly.com/julien-loze',
-                parentElement: document.getElementById('calendly-inline-widget'),
-                prefill: {},
-                utm: {}
-            });
-        });
-    </script>
-
 </body>
 </html>
